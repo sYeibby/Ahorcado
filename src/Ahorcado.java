@@ -1,24 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-/**
- *
- * @author labdessw16
- */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.util.Random;
 
 public class Ahorcado extends javax.swing.JFrame {
+    
+    private String palabraActual;
+    private String pistaActual;
+    private int nivelSeleccionado = 1;
        
-    public static final String[] palabras = {"PARADIGMAS", "CLASE", "OBJETO"};
-    public static final String[] pistas = {"Tipos de programación", "Estructura en POO", "Instancia de una clase"};
+    public static final String[] palabras1 = {"PARADIGMAS", "CLASE", "OBJETO"};
+    public static final String[] pistas1 = {"Tipos de programación", "Estructura en POO", "Instancia de una clase"};
 
-    public String palabraActual;
-    public String pistaActual;
+    public static final String[] palabras2 = {"HERENCIA", "POLIMORFISMO", "ENCAPSULAMIENTO"};
+    public static final String[] pistas2 = {
+        "Permite que una clase herede atributos y métodos de otra",
+        "Permite que objetos se comporten de manera similar a través de una interfaz común",
+        "Oculta los detalles internos de una clase y expone solo lo necesario"
+    };
+
+    public static final String[] palabras3 = {"ABSTRACTA", "ABSTRACTO", "SOBRECARGA"};
+    public static final String[] pistas3 = {
+        "Clase que no se puede instanciar directamente y se utiliza como base",
+        "Método declarado en una clase abstracta sin implementación concreta",
+        "Permite definir varios métodos con el mismo nombre pero con diferentes parámetros"
+    };
+    
     public int vidas = 3;
     /**
      * Creates new form Menu
@@ -78,6 +85,13 @@ public class Ahorcado extends javax.swing.JFrame {
         X = new javax.swing.JButton();
         Y = new javax.swing.JButton();
         Z = new javax.swing.JButton();
+        Reset = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        txtPalabraCorrecta = new javax.swing.JLabel();
+        txtPerdiste = new javax.swing.JLabel();
+        txtLapalabraes = new javax.swing.JLabel();
+        btnContinuar = new javax.swing.JButton();
+        btnReintentar = new javax.swing.JButton();
         Inicio = new javax.swing.JPanel();
         btnPlay = new javax.swing.JButton();
         jcbNiveles = new javax.swing.JComboBox<>();
@@ -89,6 +103,7 @@ public class Ahorcado extends javax.swing.JFrame {
 
         Ahorcado.setTitle("AHORCADO");
         Ahorcado.setPreferredSize(new java.awt.Dimension(1800, 900));
+        Ahorcado.setResizable(false);
         Ahorcado.setSize(new java.awt.Dimension(1800, 900));
         Ahorcado.getContentPane().setLayout(new java.awt.GridLayout(2, 1));
 
@@ -100,7 +115,7 @@ public class Ahorcado extends javax.swing.JFrame {
         txtPalabra.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         txtPalabra.setForeground(new java.awt.Color(0, 0, 0));
 
-        txtPista.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtPista.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtPista.setForeground(new java.awt.Color(0, 0, 0));
 
         vida1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -125,28 +140,28 @@ public class Ahorcado extends javax.swing.JFrame {
             .addGroup(panelPistasLayout.createSequentialGroup()
                 .addGroup(panelPistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPistasLayout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(txtPista, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPista, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelPistasLayout.createSequentialGroup()
                         .addGap(234, 234, 234)
-                        .addGroup(panelPistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPistasLayout.createSequentialGroup()
-                                .addComponent(vida1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(vida2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(vida3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(103, Short.MAX_VALUE))
+                        .addComponent(vida1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(vida2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(vida3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelPistasLayout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPistasLayout.setVerticalGroup(
             panelPistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPistasLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(txtPista, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
+                .addComponent(txtPista, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
                 .addGroup(panelPistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vida1)
                     .addComponent(vida3)
@@ -168,24 +183,25 @@ public class Ahorcado extends javax.swing.JFrame {
         panelAhorcado.setLayout(panelAhorcadoLayout);
         panelAhorcadoLayout.setHorizontalGroup(
             panelAhorcadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAhorcadoLayout.createSequentialGroup()
-                .addGap(120, 120, 120)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAhorcadoLayout.createSequentialGroup()
+                .addContainerGap(462, Short.MAX_VALUE)
                 .addGroup(panelAhorcadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cuerpo)
-                    .addComponent(cabeza)
-                    .addComponent(poste))
-                .addContainerGap(605, Short.MAX_VALUE))
+                    .addGroup(panelAhorcadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(cabeza)
+                        .addComponent(poste)))
+                .addGap(372, 372, 372))
         );
         panelAhorcadoLayout.setVerticalGroup(
             panelAhorcadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAhorcadoLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(64, 64, 64)
                 .addComponent(poste)
-                .addGap(79, 79, 79)
+                .addGap(69, 69, 69)
                 .addComponent(cabeza)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addComponent(cuerpo)
-                .addGap(102, 102, 102))
+                .addGap(126, 126, 126))
         );
 
         poste.setVisible(false);
@@ -417,6 +433,58 @@ public class Ahorcado extends javax.swing.JFrame {
 
         Ahorcado.getContentPane().add(panelTeclado);
 
+        Reset.setTitle("PERDISTE");
+        Reset.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Reset.setModal(true);
+        Reset.setResizable(false);
+        Reset.setSize(new java.awt.Dimension(800, 800));
+        Reset.getContentPane().setLayout(new java.awt.GridLayout());
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 800));
+        jPanel1.setLayout(null);
+
+        txtPalabraCorrecta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtPalabraCorrecta.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(txtPalabraCorrecta);
+        txtPalabraCorrecta.setBounds(200, 260, 390, 80);
+
+        txtPerdiste.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtPerdiste.setForeground(new java.awt.Color(0, 204, 204));
+        txtPerdiste.setText("Has perdido!!!");
+        jPanel1.add(txtPerdiste);
+        txtPerdiste.setBounds(310, 80, 170, 80);
+
+        txtLapalabraes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtLapalabraes.setForeground(new java.awt.Color(0, 0, 0));
+        txtLapalabraes.setText("La palabra correcta es:");
+        jPanel1.add(txtLapalabraes);
+        txtLapalabraes.setBounds(270, 200, 300, 50);
+
+        btnContinuar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnContinuar.setForeground(new java.awt.Color(255, 255, 255));
+        btnContinuar.setText("Continuar");
+        btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinuarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnContinuar);
+        btnContinuar.setBounds(210, 400, 160, 70);
+
+        btnReintentar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnReintentar.setForeground(new java.awt.Color(255, 255, 255));
+        btnReintentar.setText("Reintentar");
+        btnReintentar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReintentarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnReintentar);
+        btnReintentar.setBounds(440, 400, 160, 70);
+
+        Reset.getContentPane().add(jPanel1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("INICIO");
         setSize(new java.awt.Dimension(800, 800));
@@ -439,6 +507,11 @@ public class Ahorcado extends javax.swing.JFrame {
         jcbNiveles.setBackground(new java.awt.Color(102, 102, 102));
         jcbNiveles.setForeground(new java.awt.Color(255, 255, 255));
         jcbNiveles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NIVEL 1", "NIVEL 2", "NIVEL 3" }));
+        jcbNiveles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbNivelesActionPerformed(evt);
+            }
+        });
         Inicio.add(jcbNiveles);
         jcbNiveles.setBounds(400, 300, 120, 50);
 
@@ -480,6 +553,7 @@ public class Ahorcado extends javax.swing.JFrame {
         Ahorcado.setModal(true);
         Ahorcado.setBounds(10,10,1800,900);
         Ahorcado.setVisible(true);
+        iniciarJuego();
     }//GEN-LAST:event_btnPlayActionPerformed
 
     private void BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActionPerformed
@@ -590,6 +664,37 @@ public class Ahorcado extends javax.swing.JFrame {
         botonLetraPresionado('Z');
     }//GEN-LAST:event_ZActionPerformed
 
+    private void jcbNivelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNivelesActionPerformed
+        String nivel = (String) ((javax.swing.JComboBox) evt.getSource()).getSelectedItem();
+        switch (nivel) {
+            case "NIVEL 1":
+                nivelSeleccionado = 1;
+                break;
+            case "NIVEL 2":
+                nivelSeleccionado = 2;
+                break;
+            case "NIVEL 3":
+                nivelSeleccionado = 3;
+                break;
+            default:
+                nivelSeleccionado = 1;
+                break;
+        }
+        iniciarJuego(); // Agregamos esta línea para iniciar el juego cuando se cambie el nivel
+    }//GEN-LAST:event_jcbNivelesActionPerformed
+
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+         Reset.dispose();
+         Ahorcado.dispose();
+         reset();
+         
+    }//GEN-LAST:event_btnContinuarActionPerformed
+
+    private void btnReintentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReintentarActionPerformed
+         reiniciarJuego(); // Llamar a la función para reiniciar el juego
+         Reset.dispose(); // Cerrar el diálogo
+    }//GEN-LAST:event_btnReintentarActionPerformed
+
 
     public void iniciarParpadeo() {   
         Timer timer = new Timer(500, new ActionListener() {
@@ -611,6 +716,25 @@ public class Ahorcado extends javax.swing.JFrame {
 
     private void seleccionarPalabraYPista() {
         Random random = new Random();
+        String[] palabras;
+        String[] pistas;
+
+        switch (nivelSeleccionado) {
+            case 2:
+                palabras = palabras2;
+                pistas = pistas2;
+                break;
+            case 3:
+                palabras = palabras3;
+                pistas = pistas3;
+                break;
+            case 1:
+            default:
+                palabras = palabras1;
+                pistas = pistas1;
+                break;
+        }
+
         int indice = random.nextInt(palabras.length);
         palabraActual = palabras[indice];
         pistaActual = pistas[indice];
@@ -639,8 +763,6 @@ public class Ahorcado extends javax.swing.JFrame {
         // La letra no está en la palabra, perder una vida y mostrar una parte del ahorcado
             mostrarAhorcado();
         }
-        // Verificar si el jugador ha perdido después de cada intento
-        haPerdido();
     }
 
     private void actualizarPalabraLabel(char letra) {
@@ -660,9 +782,7 @@ public class Ahorcado extends javax.swing.JFrame {
     txtPalabra.setText(new String(palabraOcultaArray));
 }
 
-    
-    
-    
+  
      // Método para mostrar una parte del ahorcado cuando el jugador pierde una vida
     private void mostrarAhorcado() {
         if (vidas > 0) {
@@ -676,6 +796,7 @@ public class Ahorcado extends javax.swing.JFrame {
                     break;
                 case 0:
                     vida1.setVisible(false); // Oculta el primer corazón
+                    mostrarDialogoPerder();
                     break;
             }
             // Muestra el poste, cabeza y cuerpo
@@ -693,11 +814,42 @@ public class Ahorcado extends javax.swing.JFrame {
         }
     }
     
-    // Método para verificar si el jugador ha perdido todas las vidas
-    public void haPerdido() {
-        if (vidas == 0) {
-            JOptionPane.showMessageDialog(null, "¡Has perdido!");
-        }
+    
+    public void mostrarDialogoPerder() {
+        Reset.setModal(true);
+        Reset.setBounds(10,10,800,800);
+        Reset.setVisible(true);
+
+        // Crear el campo de texto para mostrar la palabra correcta
+        txtPalabraCorrecta.setText(palabraActual);      
+    }
+    
+    public void reiniciarJuego() {
+        // Restablecer las vidas
+        vidas = 3;
+        // Mostrar nuevamente los corazones y ocultar el ahorcado
+        vida1.setVisible(true);
+        vida2.setVisible(true);
+        vida3.setVisible(true);
+        poste.setVisible(false);
+        cabeza.setVisible(false);
+        cuerpo.setVisible(false); 
+        // Seleccionar una nueva palabra y pista
+        seleccionarPalabraYPista();
+        // Mostrar la nueva pista y la palabra oculta
+        mostrarPista();
+    }
+    
+    public void reset(){
+        // Restablecer las vidas
+        vidas = 3;
+        // Mostrar nuevamente los corazones y ocultar el ahorcado
+        vida1.setVisible(true);
+        vida2.setVisible(true);
+        vida3.setVisible(true);
+        poste.setVisible(false);
+        cabeza.setVisible(false);
+        cuerpo.setVisible(false);
     }
        
     
@@ -759,6 +911,7 @@ public class Ahorcado extends javax.swing.JFrame {
     private javax.swing.JButton P;
     private javax.swing.JButton Q;
     private javax.swing.JButton R;
+    private javax.swing.JDialog Reset;
     private javax.swing.JButton S;
     private javax.swing.JButton T;
     private javax.swing.JButton U;
@@ -767,10 +920,13 @@ public class Ahorcado extends javax.swing.JFrame {
     private javax.swing.JButton X;
     private javax.swing.JButton Y;
     private javax.swing.JButton Z;
+    private javax.swing.JButton btnContinuar;
     private javax.swing.JButton btnPlay;
+    private javax.swing.JButton btnReintentar;
     private javax.swing.JButton btnTutorial;
     private javax.swing.JLabel cabeza;
     private javax.swing.JLabel cuerpo;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> jcbNiveles;
     private javax.swing.JPanel panelAhorcado;
     private javax.swing.JPanel panelContenedorPistas;
@@ -780,8 +936,11 @@ public class Ahorcado extends javax.swing.JFrame {
     private javax.swing.JTextField tfNombre;
     public javax.swing.JLabel txtBienvenido;
     private javax.swing.JLabel txtDificultad;
+    private javax.swing.JLabel txtLapalabraes;
     private javax.swing.JLabel txtNombre;
     private javax.swing.JLabel txtPalabra;
+    private javax.swing.JLabel txtPalabraCorrecta;
+    private javax.swing.JLabel txtPerdiste;
     private javax.swing.JLabel txtPista;
     private javax.swing.JLabel vida1;
     private javax.swing.JLabel vida2;
